@@ -13,7 +13,7 @@ guess_range = 20
 number = random.randint(1,guess_range)
 
 #ask the user for a response and store it in the variable [guess]
-guess = input()
+guess = input("Guess a number between 1 to 20 --> ")
 
 
 #a try/except block is a great tool for programmers to be able to deal with errors. In this instance, it reports an error if the user enters something other than an integer
@@ -24,6 +24,10 @@ try:
 	#check if the guess is less than the random number
 	if guess < number:
 		print('Too low!')
+        elif guess > number:
+                print('Too High!')
+        else:
+                print('You Win!')
 
 except ValueError:
 	print('Please enter a whole number.')
