@@ -1,29 +1,49 @@
-#!/usr/bin/python3
+import random
+import sys
 
-import sys, random
+low = 1
+high = 30
+guesslimit = 5
 
-assert sys.version_info >= (3,4), "This script requires at least Python 3.4"
+print("Guess a number between {0} and {1}".format(low, high))
+print("You have {0} guesses to get the right number".format(guesslimit))
 
-#variables
-guesses = 10
-guess_range = 20
+guessnumb = 0
+number = random.randint(low, high)
 
-
-#generate a random integer between 1 and 20 (inclusive) and store it in the variable [number]
-number = random.randint(1,guess_range)
-
-#ask the user for a response and store it in the variable [guess]
-guess = input()
-
-
-#a try/except block is a great tool for programmers to be able to deal with errors. In this instance, it reports an error if the user enters something other than an integer
 try:
-	#convert the guess to an integer
-	guess = int(guess)
+	while guessnumb < guesslimit:
+		try:
+			guess = int(input('What\'s your guess? '))
+		except ValueError:
+			print("Characters are not numbers!")
+			continue
+	
+		if guess < low or guess > high:
+			print("Value out of range ({0} - {1})".format(low, high))
+		else:
+			guessnumb += 1
+			
+			if guess < number:
+				print("Your guess was too low...")
+		
+			if guess > number:
+				print("Your guess was too high...")
+		
+			if guess == number:
+				break
+	
+except KeyboardInterrupt:
+	print("Exit")
+	sys.exit()
 
-	#check if the guess is less than the random number
-	if guess < number:
-		print('Too low!')
+except EOFError:
+	print("Exit")
+	sys.exit()
 
-except ValueError:
-	print('Please enter a whole number.')
+if guess == number:
+	print("Great, you guessed the number in {0} trys".format(guessnumb))
+	input("Press any key to exit")
+else:
+	print("No, I was thinking of the number {0}".format(number))
+	input("Press any key to exit")
